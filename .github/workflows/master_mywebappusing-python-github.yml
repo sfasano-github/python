@@ -30,6 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install Flask gunicorn
+          cp demoapp.py /
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
