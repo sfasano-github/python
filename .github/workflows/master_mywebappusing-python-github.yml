@@ -13,8 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write #This is required for requesting the JWT
 
     steps:
       - uses: actions/checkout@v4
@@ -31,9 +29,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-	
-      #- name: Create directory and copy demoapp.py
-      #  run: python -c "import os import shutil os.makedirs('app', exist_ok=True) shutil.copy('demoapp.py', 'app/demoapp.py')"
 
       - name: Create oryx-manifest.toml
         run: |
