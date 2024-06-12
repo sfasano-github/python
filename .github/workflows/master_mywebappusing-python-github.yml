@@ -11,16 +11,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write #This is required for requesting the JWT
-    
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python version
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v1
         with:
           python-version: '3.9'
 
@@ -30,16 +28,24 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: |
-          pip install Flask gunicorn
-		  
-      - name: Install dependencies 2
-        run: cp demoapp.py /
+        run: pip install -r requirements.txt
 
-      - name: Deploy to Azure Web App
+       - name: Copy demoapp.py to root
+        run: |
+          python -c "import shutil src = 'demoapp.py' dst = '/demoapp.py' shutil.copy(src, dst)"
+
+  deploy:
+    runs-on: ubuntu-latest
+    #needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
           app-name: 'myWebAppUsing-PYTHON-GitHub'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AF24853BB8054387999BC1ED4D2433B2 }}
-          package: .
