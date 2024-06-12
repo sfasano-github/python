@@ -32,7 +32,6 @@ jobs:
       - name: Install dependencies
         run: |
              pip install -r requirements.txt
-             pip install Flask gunicorn
 	
       - name: Create directory and copy demoapp.py
         run: |
