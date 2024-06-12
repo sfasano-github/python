@@ -35,10 +35,6 @@ jobs:
           echo '[build]' > oryx-manifest.toml
           echo 'command = "gunicorn --bind 0.0.0.0:8000 demoapp:app"' >> oryx-manifest.toml
 
-      - name: Zip artifact for deployment
-        run: |
-          zip demoapp.zip demoapp.py oryx-manifest.toml ./* -r
-
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
         with:
