@@ -37,7 +37,7 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          zip demoapp.zip oryx-manifest.toml ./* -r
+          zip demoapp.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
