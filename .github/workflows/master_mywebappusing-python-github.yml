@@ -13,10 +13,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-	permissions:
+    permissions:
       id-token: write #This is required for requesting the JWT
     
-	steps:
+    steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python version
@@ -32,9 +32,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install Flask gunicorn
-
-      - name: Copiar fichero
-        run:  cp demoapp.py /
+		  
+      - name: Install dependencies
+        run: cp demoapp.py /
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
