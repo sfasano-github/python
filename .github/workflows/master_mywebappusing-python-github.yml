@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 	
-      - name: Create directory and copy demoapp.py
-        run: python -c "import os import shutil os.makedirs('app', exist_ok=True) shutil.copy('demoapp.py', 'app/demoapp.py')"
+      #- name: Create directory and copy demoapp.py
+      #  run: python -c "import os import shutil os.makedirs('app', exist_ok=True) shutil.copy('demoapp.py', 'app/demoapp.py')"
 
       - name: Create oryx-manifest.toml
         run: |
