@@ -33,10 +33,10 @@ jobs:
         run: |
              pip install -r requirements.txt
              pip install Flask gunicorn
-
-      - name: Copy demoapp.py to root
+	
+      - name: Create directory and copy demoapp.py
         run: |
-          python -c "import shutil; shutil.copy('demoapp.py', '/demoapp.py')"
+          python -c "import os import shutil os.makedirs('app', exist_ok=True) shutil.copy('demoapp.py', 'app/demoapp.py')"
 
       - name: Create oryx-manifest.toml
         run: |
