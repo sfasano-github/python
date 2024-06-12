@@ -28,11 +28,22 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+             pip install -r requirements.txt
+             pip install Flask gunicorn
 
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Copy demoapp.py to root
+        run: |
+          python -c "import shutil; shutil.copy('demoapp.py', '/demoapp.py')"
+
+      - name: Create oryx-manifest.toml
+        run: |
+          echo '[build]' > oryx-manifest.toml
+          echo 'command = "gunicorn --bind 0.0.0.0:8000 demoapp:app"' >> oryx-manifest.toml
+
       - name: Zip artifact for deployment
-        run: zip demoapp.zip ./* -r
+        run: |
+          zip -r demoapp.zip demoapp.py oryx-manifest.toml ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
