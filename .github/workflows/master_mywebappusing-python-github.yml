@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-		
+
       - name: Create oryx-manifest.toml
         run: |
           echo 'command = "gunicorn --bind 0.0.0.0:8000 demoapp:app"' >> oryx-manifest.toml
